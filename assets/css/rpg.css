@@ -1,0 +1,43 @@
+body {
+	background: black url("../images/starwars_background.jpg") no-repeat center top;
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
+}
+
+.top-margin {
+	margin-top: 30px;
+}
+
+.bottom-margin {
+	margin-bottom: 30px;
+}
+
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.char-box {
+	background: white;
+	width: 178px;
+	border: 2px green solid;
+}
+
+.char-box img {
+	margin-bottom: 8px;
+}
+
+.char-portrait {
+	display: block;
+	height: 80px;
+	margin: 0 auto;
+}
+
+.char-text {
+	color: black;
+}
+
+#restart {
+	visibility: hidden;

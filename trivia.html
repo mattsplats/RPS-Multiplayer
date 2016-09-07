@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="Seinfeld Trivia Game">
+
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/superhero/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap_override.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/trivia.css">
+
+	<title>Portfolio: Trivia Game</title>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Matt Davis</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="about.html">About</a></li>
+					<li class="active"><a href="portfolio.html">Portfolio <span class="sr-only">(current)</span></a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container main">
+		<div class="row fade-in">
+			<section class="col-md-12">
+				<div class="page-header"><h2>Trivia Game</h2></div>
+
+				<!-- <blockquote>
+					<p>Do, or do not.  There is no try.</p>
+					<small class="text-muted"><cite title="Source Title">Master Yoda</cite></small>
+				</blockquote> -->
+			</section>
+		</div>
+
+		<div class="row fade-in">
+			<section class="col-md-12">
+				
+				<div class="panel text-center">
+					<br/>
+					<img id="logo" src="assets/images/trivia/seinfeld-logo.png">
+					<h1 id="game_title">The Trivia Game!</h1>
+					<div id="game"><br/><br/><br/><br/><h2>Loading</h2></div> 
+				</div>
+					
+			</section>
+		</div>
+
+		<div class="row fade-in top-margin">
+			<section class="col-md-12 text-center">
+				<div>
+					<button id="music_toggle" class="btn btn-default">Music: <span id="music_text">Playing</span></button>
+					<!-- &nbsp;&nbsp;
+					<button id="sfx_toggle" class="btn btn-default">Sound Effects: <span id="sfx_text">On</span></button> -->
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="containter">
+			<p class="text-center text-muted">&copy; Copyright 2016 Matt Davis</p>
+		</div>
+	</footer>
+
+	<audio id="music" src="assets/music/seinfeld_theme.mp3" preload="none" loop></audio>
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="assets/javascript/tabletop.js"></script>
+	<script src="assets/javascript/loaddata.js"></script>
+	<script src="assets/javascript/trivia.js"></script>
+	<script src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://bootswatch.com/assets/js/custom.js"></script>
+</body>
+</html>

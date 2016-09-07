@@ -1,0 +1,43 @@
+body {
+	background: black url("../images/starwars_background.jpg") no-repeat center top;
+}
+
+#wordStatus {
+	font-family: "Inconsolata";
+	font-size: 2.5em;
+	letter-spacing: 18px;
+	margin-right: -18px;
+
+}
+
+#lettersGuessed {
+	font-family: "Inconsolata";
+	font-size: 1.8em;
+}
+
+.bottom-margin {
+	margin-bottom: 30px;
+}
+
+.min-height {
+	min-height: 340px;
+}
+
+.strikethrough {
+	text-decoration: line-through red solid;
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
+}
+
+/*.fade-in-no-warp {
+	animation-name: fade-in-no-warp;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes fade-in-no-warp {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
+}*/

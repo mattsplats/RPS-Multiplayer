@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="Seinfeld Trivia Game">
+
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/superhero/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap_override.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/giphy.css">
+
+	<title>Portfolio: Giphy API</title>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Matt Davis</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="about.html">About</a></li>
+					<li class="active"><a href="portfolio.html">Portfolio <span class="sr-only">(current)</span></a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container main">
+		<div class="row fade-in">
+			<section class="col-md-12">
+				<div class="page-header"><h2>Giphy API Demo</h2></div>
+			</section>
+		</div>
+
+		<div class="row fade-in">
+			<section class="col-md-12">
+				<div class="panel">
+					<br/>
+					<h4>Click any button to try:</h4>
+					<div id="buttons"></div><br/>
+					<div class="form-group">
+						<label class="control-label">Add a button:</label>
+						<div class="input-group">
+							<input class="form-control" id="button_text" type="text" placeholder="elephant">
+							<span>
+								<button id="add_button" class="btn btn-primary">Submit</button>
+							</span>
+						</div>
+					</div><br/>
+					<div id="gifs" class="flex"></div> 
+				</div>
+			</section>
+		</div>
+
+	</div>
+
+	<footer class="footer">
+		<div class="containter">
+			<p class="text-center text-muted">&copy; Copyright 2016 Matt Davis</p>
+		</div>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://bootswatch.com/assets/js/custom.js"></script>
+	<script src="assets/javascript/giphy.js"></script>
+</body>
+</html>

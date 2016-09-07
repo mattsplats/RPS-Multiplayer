@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="Hangman: Star Wars Edition!">
+
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/superhero/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap_override.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/rpg.css">
+
+	<title>Portfolio: RPG Game</title>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Matt Davis</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="about.html">About</a></li>
+					<li class="active"><a href="portfolio.html">Portfolio <span class="sr-only">(current)</span></a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container main">
+		<div class="row fade-in">
+			<section class="col-md-12">
+				<div class="page-header"><h2>RPG Game</h2></div>
+
+				<!-- <blockquote>
+					<p>Do, or do not.  There is no try.</p>
+					<small class="text-muted"><cite title="Source Title">Master Yoda</cite></small>
+				</blockquote> -->
+			</section>
+		</div>
+
+		<div class="row fade-in">
+			<section class="col-md-12">
+				
+				<!-- Choose player from here -->
+				<div id="choose_char" class="flex">
+					<div id="char_0" class="char-box" value=0>
+						<div id="name_0" class="text-center char-text">&nbsp;</div>
+						<img class="char-portrait" src="assets/images/rpg/luke.jpg">
+						<div id="hp_0" class="text-center char-text">&nbsp;</div>
+					</div>
+					<div id="char_1" class="char-box" value=1>
+						<div id="name_1" class="text-center char-text">&nbsp;</div>
+						<img class="char-portrait" src="assets/images/rpg/yoda.jpg">
+						<div id="hp_1" class="text-center char-text">&nbsp;</div>
+					</div>
+					<div id="char_2" class="char-box" value=2>
+						<div id="name_2" class="text-center char-text">&nbsp;</div>
+						<img class="char-portrait" src="assets/images/rpg/han.jpg">
+						<div id="hp_2" class="text-center char-text">&nbsp;</div>
+					</div>
+					<div id="char_3" class="char-box" value=3>
+						<div id="name_3" class="text-center char-text">&nbsp;</div>
+						<img class="char-portrait" src="assets/images/rpg/vader.jpg">
+						<div id="hp_3" class="text-center char-text">&nbsp;</div>
+					</div>
+				</div>
+
+				<!-- Shows player character -->
+				<div>
+					<h3>Your Character</h3>
+					<div id="player" class="flex"></div>
+				</div>
+
+				<!-- Choose enemy from here -->
+				<div>
+					<h3>Enemies Available To Attack</h3>
+					<div id="enemies" class="flex"></div>
+				</div>
+
+				<!-- Attack button -->
+				<div>
+					<h3>Fight Section</h3>
+					<button id="attack" class="btn btn-default">Attack</button>
+				</div>
+
+				<!-- Shows defender, battle text, and restart button (plus hidden div for dead enemies) -->
+				<div>
+					<h3>Defender</h3>
+					<div id="defender" class="flex"></div>
+					<div id="battle_text"></div>
+					<button id="restart" class="btn btn-default">Restart</button>
+				</div>
+			</section>
+		</div>
+
+		<div class="row fade-in top-margin">
+			<section class="col-md-12 text-center">
+				<div>
+					<button id="music_toggle" class="btn btn-default">Music: <span id="music_text">Playing</span></button>
+					<!-- &nbsp;&nbsp;
+					<button id="sfx_toggle" class="btn btn-default">Sound Effects: <span id="sfx_text">On</span></button> -->
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="containter">
+			<p class="text-center text-muted">&copy; Copyright 2016 Matt Davis</p>
+		</div>
+	</footer>
+
+	<audio id="music" src="assets/music/imperialmarch.mp3" preload="none" loop></audio>
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="assets/javascript/tabletop.js"></script>
+	<script src="assets/javascript/loaddata.js"></script>
+	<script src="assets/javascript/rpg.js"></script>
+	<script src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://bootswatch.com/assets/js/custom.js"></script>
+</body>
+</html>

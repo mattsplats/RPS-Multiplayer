@@ -1,0 +1,54 @@
+body {
+	background: black url("../images/trivia/kramer_painting.jpg") no-repeat center top;
+}
+
+.panel {
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 600px;
+	padding: 0px 50px;
+	font-family: "Gloucester MT Extra Condensed";
+	font-style: italic;
+}
+
+.panel button {
+	background: white;
+	font-size: 22px;
+	font-weight: bold;
+	font-style: italic;
+	color: #E30922;
+}
+
+.panel button:hover, button:focus, button:active {
+   background: #E30922;
+   font-weight: normal;
+   text-shadow: 2px 1px 5px black;
+}
+
+.btn:hover, .btn:focus, .btn:active {
+   outline: none !important;
+}
+
+.btn-lg {
+	font-size: 30px !important;
+}
+
+.top-margin {
+	margin-top: 30px;
+}
+
+.bottom-margin {
+	margin-bottom: 8px;
+}
+
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#logo {
+	width: 400px;
+}
+
+#restart {
+	visibility: hidden;
