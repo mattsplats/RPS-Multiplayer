@@ -20,6 +20,7 @@ body {
 	color: black;
 	height: 180px;
 	margin-bottom: 5px;
+	overflow-y: hidden;
 }
 
 .flex {

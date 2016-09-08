@@ -7,48 +7,60 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// Executes on every update to Firebase data
+// Executes on every update to player data
 firebase.database().ref("players").on("value", function(snapshot) {
 	let p1active = snapshot.child("1/name").exists();
 	let p2active = snapshot.child("2/name").exists();
 
-	if (!game.started) {
-		if (!sessionStorage.getItem("player")) {
-			 if (!p1active) {
-				sessionStorage.setItem("player", 1);
-			} else if (!p2active) {
-				sessionStorage.setItem("player", 2);
-			} else {
-				$("#test").html("<h3>Sorry, game is full!</h3>");
-			}
-		} else if (sessionStorage.getItem("player") == 1) {
-			p1active = false;
-		} else {
-			p2active = false;
-		}
-	}
-
-	game.started = true;
-
+	// If Player 1 is present, update & show text
 	if (p1active) {
 		game.player1Name = snapshot.child("1/name").val();
 		$("#name_p1").html(snapshot.child("1/name").val());
 		$("#count_p1").html("Wins: " + snapshot.child("1/wins").val() + " Losses: " + snapshot.child("1/losses").val()).removeClass("invis");
 	}
 
+	// If Player 2 is present, update & show text
 	if (p2active) {
 		game.player2Name = snapshot.child("2/name").val();
 		$("#name_p2").html(snapshot.child("2/name").val());
 		$("#count_p2").html("Wins: " + snapshot.child("2/wins").val() + " Losses: " + snapshot.child("2/losses").val()).removeClass("invis");
 	}
 
+	// If both players present and game has not already been started, start game
 	if (p1active && p2active && !game.playersReady) {
 		game.playersReady = true;
 		game.init();
 	}
 
+	// Progress game as each choice is made (choice 2 calls getWinner(), and then players/winner exists which calls showWinner())
 	if (snapshot.child("1/choice").exists()) { game.playerTurn(2); }
 	if (snapshot.child("winner").exists()) { game.showWinner(); }
+
+	// If player disconnects, reset game state, update game text, clear chat, show disconnected message
+	// Condition: playersReady is true and one or more players is not connected
+	if ((!p1active || !p2active) && game.playersReady) {
+
+		// Only trigger disconnect event for player that is still connected
+		if ((p1active && game.player == 1) || (p2active && game.player == 2)) {
+			const otherPlayer = game.player == 1 ? 2 : 1;
+
+			game.playersReady = false;
+
+			$("#name_p" + otherPlayer).html("Waiting for Player " + otherPlayer);
+			$("#count_p" + otherPlayer).addClass("invis");
+			$("#game_status").html("<h4>Waiting for other player to join.<h4>");
+			$(".rps-p" + game.player).addClass("invis");
+
+			firebase.database().ref("chat").remove();
+
+			$("#chat").append("<span>Player " + otherPlayer + " has disconnected.</span><br/>");
+		}
+	}
+
+	// If neither player is connected (new game), clear chat
+	if (!p1active && !p2active) {
+		firebase.database().ref("chat").remove();
+	}
 
 	// If any errors are experienced, log them to console. 
 }, function (errorObject) {
@@ -57,7 +69,14 @@ firebase.database().ref("players").on("value", function(snapshot) {
 
 // If chats are added
 firebase.database().ref("chat").on("child_added", function(snapshot) {
-	$("#chat").append(snapshot.val());
+	// Places text with color based on whether it came from this player or the other player
+	const textColor = game.player == snapshot.val().player ? "green" : "purple";
+	$("#chat").append("<span style='color: " + textColor + "'>" + snapshot.val().text + "</span><br/>");
+	
+	// Scrolls chat window down automatically with each input
+	let chat = document.getElementById("chat");
+	chat.scrollTop = chat.scrollHeight;
+
 	$("#chat_input").val("");
 
 // If any errors are experienced, log them to console. 
@@ -68,37 +87,31 @@ firebase.database().ref("chat").on("child_added", function(snapshot) {
 // Game object
 let game = {
 	// Properties
-	player1Name: "",
-	player2Name: "",
-	playersReady: false,
-	rpsArr: ["Rock", "Paper", "Scissors"],
-	started: false,
+	player: undefined,  // Number of this player
+	player1Name: undefined,
+	player2Name: undefined,
+	playersReady: false,  // Guard for starting game
 	
 	// Methods
-	init: function(data){
+	init: function(){
 		game.playerTurn(1);
 	},
 
-	playerTurn : function(player){
-		if (sessionStorage.getItem("player") == player) {
-			$(".rps-p" + player).removeClass("invis");
-			$("#game_status").html("<h4>It's your turn!<h4>");
-		} else {
-			let otherPlayerName = sessionStorage.getItem("player") == 1 ? game.player2Name : game.player1Name;
-
-			$(".rps-p" + sessionStorage.getItem("player")).addClass("invis");
-			$("#game_status").html("<h4>Waiting for " + otherPlayerName + " to choose.</h4>");
-		}
+	disconnect: function(){
+		firebase.database().ref("players/" + game.player).remove();
 	},
 
-	// playerWaiting: function(player){
-	// 	if (sessionStorage.getItem("player") == player) {
-	// 		let otherPlayerName = player == 1 ? game.player2Name : game.player1Name;
+	playerTurn : function(player){
+		if (game.player == player) {
+			$("#game_status").html("<h4>It's your turn!<h4>");
+			$(".rps-p" + game.player).removeClass("invis");
+		} else {
+			const otherPlayerName = game.player == 1 ? game.player2Name : game.player1Name;
 
-	// 		$(".rps-p" + player).addClass("invis");
-	// 		$("#game_status").html("<h4>Waiting for " + otherPlayerName + " to choose.</h4>");
-	// 	}
-	// },
+			$("#game_status").html("<h4>Waiting for " + otherPlayerName + " to choose.</h4>");
+			$(".rps-p" + game.player).addClass("invis");
+		}
+	},
 
 	getWinner: function(player2Choice){
 		firebase.database().ref("players").once("value").then(function(snapshot){
@@ -144,22 +157,35 @@ let game = {
 };
 
 $(function() {
-	// Sets player name/wins/losses and shows player win/loss count
+	// Chooses player 1/2, set player name/wins/losses
 	$("#submit").on("click", function(event){
-		const player = sessionStorage.getItem("player") || 0;
-		const name = $("#name").val().trim();
-		let loc = "players/" + player;
+		firebase.database().ref("players").once("value").then(function(snapshot){
+			if (!snapshot.child("1/name").exists()) {
+				game.player = 1;
+			} else if (!snapshot.child("2/name").exists()) {
+				game.player = 2;
+			} else {
+				$("#name_button").html("<h3>Sorry, game is full!</h3>");
+			}
 
-		if (player != 0 && name != "") {
-			firebase.database().ref(loc + "/name").set(name);
-			firebase.database().ref(loc + "/wins").set(0);
-			firebase.database().ref(loc + "/losses").set(0);
+			const playerName = $("#name").val().trim();
+			const loc = "players/" + game.player;
 
-			$("#name_button").html("<h4>Hi " + name + "! You are Player " + player + "</h4>");
-			$("#name_p" + player).html(name);
-		}
+			// Only create player in database if player slot was available and a valid name was entered
+			if (game.player && playerName != "") {
+				firebase.database().ref(loc).set({
+					name: playerName,
+					wins: 0,
+					losses: 0
+				});
+
+				$("#name_button").html("<h4>Hi " + playerName + "! You are Player " + game.player + "</h4>");
+
+				// Only show if you are player 1 and you are not connecting to an existing game (there is no player 2)
+				if (game.player == 1 && !snapshot.child("2/name").exists()) { $("#game_status").html("<h4>Waiting for other player to join.<h4>"); }
+			}
+		});
 	});
-
 	// Allows name entry on enter
 	$("#name").keypress(function(event) {
 		if (event.which == 13) {
@@ -167,19 +193,17 @@ $(function() {
 		}
 	});
 
-	// Adds text to chat
+	// Adds text to chat (only when both players are present)
 	$("#chat_send").on("click", function(event){
-		if (game.playersReady) {
-			firebase.database().ref("players").once("value").then(function(snapshot) {
-				let playerNum = sessionStorage.getItem("player");
-				let playerName = snapshot.child(playerNum + "/name").val();
-				let textColor = playerNum == 1 ? "green" : "purple";
-
-				firebase.database().ref("chat").push("<span style='color: " + textColor + ";'>" + playerName + ": " + $("#chat_input").val().trim() + "</span><br/>");
+		if (game.playersReady && $("#chat_input").val().trim() != "") {
+			const playerName = game.player == 1 ? game.player1Name : game.player2Name;
+			
+			firebase.database().ref("chat").push({
+				text: playerName + ": " + $("#chat_input").val().trim(),
+				player: game.player
 			});
 		}
 	});
-
 	// Allows chat entry on enter
 	$("#chat_input").keypress(function(event) {
 		if (event.which == 13) {
@@ -196,4 +220,8 @@ $(function() {
 	$(".rps-p2").on("click", function(event){
 		game.getWinner($(this).data("choice"));
 	});
+});
+
+$(window).on("beforeunload", function(event){
+	game.disconnect();
 });
