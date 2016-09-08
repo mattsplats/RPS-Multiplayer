@@ -1,0 +1,44 @@
+body {
+	/*background: black url("../images/trivia/kramer_painting.jpg") no-repeat center top;*/
+}
+
+.btn:hover, .btn:focus, .btn:active {
+   outline: none !important;
+}
+
+.well-main {
+	min-height: 600px;
+}
+
+.outline {
+	border: 1px solid black;
+	min-height: 240px;
+}
+
+.chat {
+	background: white;
+	color: black;
+	height: 180px;
+	margin-bottom: 5px;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+}
+
+.invis {
+	visibility: hidden;
+}
+
+.vis {
+	visibility: visible !important;
+}
+
+.space-after {
+	margin-bottom: 5px;
+}
+
+.space-after-lg {
+	margin-bottom: 12px;
+}
