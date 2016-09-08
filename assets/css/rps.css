@@ -25,14 +25,11 @@ body {
 .flex {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 }
 
 .invis {
 	visibility: hidden;
-}
-
-.vis {
-	visibility: visible !important;
 }
 
 .space-after {
