@@ -89,8 +89,6 @@ firebase.database().ref("chat").on("child_added", function(snapshot) {
 	let chat = document.getElementById("chat");
 	chat.scrollTop = chat.scrollHeight;
 
-	$("#chat_input").val("");
-
 // Log errors to console
 }, function (errorObject) {
 	console.log("The read failed: " + errorObject.code);
@@ -222,6 +220,8 @@ $(function() {
 			firebase.database().ref("chat").push({
 				text: playerName + ": " + $("#chat_input").val().trim(),
 				player: game.player
+			}).then(function(snapshot){  // Clear only the sender's chat_input, after the chat is sent
+				$("#chat_input").val("");
 			});
 		}
 	});
